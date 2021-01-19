@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Order #<%= @order.id %> <small><span class="badge badge-success"><%= @order.state %></span></small></h1>
+  <h2>ISSUED ON <%= @order.created_at.to_date %></h2>
+  <h2>Charge ID #<%= @order.charge_id %></h2>
+  <h2>Total Ammount of <%= humanized_money_with_symbol @order.charged_amount %> </h2>
+  <% @order.products_orders.each do |products_order| %>
+    <div class="row py-4">
+      <div class="col-md-3"><%= image_tag products_order.product.photo_url, width: '100%' %></div>
+      <div class="col">
+        <ul class="list-unstyled">
+          <li><strong>PRODUCT</strong> <%= products_order.product.name %> [<%= products_order.product_sku %>]</li>
+          <li><strong>PRICE</strong> <%= humanized_money_with_symbol products_order.amount %></li>
+          <li><strong>QUANTITY</strong> <%= products_order.quantity %></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

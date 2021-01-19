@@ -1,0 +1,5 @@
+function updateQuantity(new_quantity, products_order_id) {
+const targetProductQuantityText = document.getElementById(`products-order-quantity-${products_order_id}`);
+targetProductQuantityText.innerHTML = `Quantity: ${new_quantity}`;
+}
+updateQuantity(<%= @new_products_order.quantity %>, <%= @new_products_order.id %>);
