@@ -7,4 +7,4 @@ function deleteProductFromCart(target_products_order_id, only_product) {
     btn.remove();
   }
 }
-deleteProductFromCart(<%= @deleting_products_order_id %>, <%= @only_product %>);
+deleteProductFromCart(<%= @target_products_order.id %>, <%= @only_product %>);

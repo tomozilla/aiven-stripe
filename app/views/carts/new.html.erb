@@ -3,14 +3,14 @@
   <% @cart_order.products_orders.each do |products_order| %>
     <div id = "products-order-<%= products_order.id %>" class="row mt-3 mb-3">
       <div class="col-sm-12 col-md-6">
-        <%= image_tag(products_order.product.photo_url, width: '100%') %>
+          <%= image_tag(products_order.product.photo_url, width: '100%') %>
       </div>
       <div class="col-sm-12 col-md-6">
           <h1><%= products_order.product.name %></h1>
           <p>Some awesome description of product details.</p>
           <p><div id="products-order-quantity-<%= products_order.id %>">Quantity: <%= products_order.quantity %></div>
-              <%= link_to "", update_quantity_path(products_order: products_order, sign: 'minus'), class: "fas fa-minus-circle", :remote => true, method: :put  %>
-              <%= link_to "", update_quantity_path(products_order: products_order, sign: 'plus'), class: "fas fa-plus-circle", :remote => true, method: :put  %>
+              <%= link_to "", update_quantity_path(products_order: products_order, sign: -1), class: "fas fa-minus-circle", :remote => true, method: :put  %>
+              <%= link_to "", update_quantity_path(products_order: products_order, sign: 1), class: "fas fa-plus-circle", :remote => true, method: :put  %>
               <%= link_to "", delete_product_path(products_order: products_order), class: "fas fa-trash-alt", :remote => true, method: :delete  %>
           </p>
           <p>Amount: <%= humanized_money_with_symbol(products_order.product.price_cents) %></p>
