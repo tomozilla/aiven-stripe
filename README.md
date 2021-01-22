@@ -21,7 +21,7 @@ Ruby on Rails was used to build this application. Ruby is a general-purpose, hig
 
 ## Possible Extensions to Make the Application More Robust
 
-There are three areas that can be extended to build a more robust application; error handling, security, and scalability. First, the application can subscribe to more event webhooks such as 'payment_intent.payment_failed' or 'payment_intent.canceled' to handle more errors in case of payment's failures. Moreover, when there is an incident in Stripe, the client should receive an appropriate error in their browser. This can also be extended to the operational team so that they can provide manual intervention if needed.
+There are three areas that can be extended to build a more robust application; case handling, security, and scalability. First, the application can subscribe to more event webhooks such as 'payment_intent.payment_failed' or 'payment_intent.canceled' to handle different cases of payment's process. Moreover, when there is an incident in Stripe, the client should receive an appropriate error in their browser. This can also be extended to the operational team so that they can provide manual intervention if needed.
 
 Security should be another important area to focus to improve the application. More secure authentications are necessary to provide users. This can mean adding two factor authentications or OAuth based sign in with third parties such as Google or Twitter. Also, Proper authorization needs to take a place in order to provide proper access permissions to their resources. Customer data in the database can be encrypted to be protected more securely. Data in transient is encrypted, but encryption data in rest can be considered according to the business requirements.
 
