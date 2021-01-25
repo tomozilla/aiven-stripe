@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = nil
+    @product = Product.find(params[:id]) if Product.where(id: params[:id]).exists?
   end
 end

@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
+  before_action :set_current_user_orders, only: [:create, :show]
   def create
     product = Product.find(params[:product_id])
-    if current_user.orders.where(state: 'cart').empty?
+    if @current_user_orders.where(state: 'cart').empty?
       order = Order.create!(state: 'cart', user: current_user)
     else
-      order = current_user.orders.where(state: 'cart').first
+      order = @current_user_orders.where(state: 'cart').first
     end
     if ProductsOrder.where(product: product, order: order).exists?
       products_order = ProductsOrder.where(product: product, order: order).first
@@ -22,6 +23,13 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = current_user.orders.find(params[:id])
+    @order = nil
+    @order = @current_user_orders.find(params[:id]) if @current_user_orders.where(id: params[:id]).exists?
+  end
+
+  private
+
+  def set_current_user_orders
+    @current_user_orders = current_user.orders
   end
 end
