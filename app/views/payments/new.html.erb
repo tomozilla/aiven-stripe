@@ -14,10 +14,9 @@
   <button id="pay" class="btn btn-warning">Pay with Stripe Checkout</button>
   <div id="error-message"></div>
 
-  <script src="https://js.stripe.com/v3/"></script>
   <script>
     const paymentButton = document.getElementById('pay');
-    paymentButton.addEventListener('click', () => {
+    paymentButton.addEventListener('click', (event) => {
         const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
         stripe.redirectToCheckout({
             sessionId: '<%= @order.checkout_session_id %>'

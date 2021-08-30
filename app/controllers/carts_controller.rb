@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   before_action :set_products_order, only: [:update, :delete]
 
   def new
+    @current_user = current_user
     if current_user.orders.where(state: 'cart').empty?
       @cart_order = Order.create!(state: 'cart', user: current_user)
     else

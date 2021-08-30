@@ -32,7 +32,8 @@ class PaymentsController < ApplicationController
     order.update(
       checkout_session_id: session.id,
       payment_intent_id: session.payment_intent,
-      checkout_amount_cents: @total_amount
+      checkout_amount_cents: @total_amount,
+      client_secret: nil,
     )
     @order = order
     

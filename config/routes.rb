@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   resources :carts, only: [:new]
   resources :orders, only: [:show, :create] do
     resources :payments, only: :new
+    resources :elements_payments, only: :new
+    resources :elements, only: [:new, :create]
+    resources :pay_now, only: [:create]
   end
   put "/update_quantity", to: "carts#update"
   delete "/delete_product", to: "carts#delete"
-  mount StripeEvent::Engine, at: '/stripe-webhooks'
+  mount StripeEvent::Engine, at: '/webhook'
+  get "orders/:id/elements/elements_redirect", to: "elements#redirect"
 end
