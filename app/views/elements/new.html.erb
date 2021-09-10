@@ -80,13 +80,14 @@
           setup_future_usage: 'off_session'
         }).then(function(response) {
           if (response.error) {
-            console.log(result.error);
+            console.log(response.error);
             submitted = false;
             form.querySelector('button').disabled = false;
             return;
           } else if (response.paymentIntent && response.paymentIntent.status === 'succeeded') {
-            let request = new Request(`elements_redirect`);
-            console.log(request);
+            order_id = <% @order.id %>
+            //request = new Request(`elements_redirect`);
+            window.location.href = "/orders/<%= @order.id %>/elements/elements_redirect"
           }
         })
     });

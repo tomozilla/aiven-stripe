@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <h2>Total Amount: <%= humanized_money_with_symbol @order.checkout_amount_cents %></h2>
-  <button id="pay" class="btn btn-warning">Pay with Stripe Checkout</button>
+  <button id="pay" class="btn btn-primary">Pay with Stripe Checkout</button>
   <div id="error-message"></div>
 
   <script>

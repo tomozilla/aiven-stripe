@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     resources :elements, only: [:new, :create]
     resources :pay_now, only: [:create]
   end
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :orders, only: [ :show ]
+    end
+  end
   put "/update_quantity", to: "carts#update"
   delete "/delete_product", to: "carts#delete"
   mount StripeEvent::Engine, at: '/webhook'

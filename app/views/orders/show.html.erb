@@ -1,9 +1,9 @@
 <div class="container">
   <% unless @order.nil? %>
-    <h1>Order #<%= @order.id %> <small><span class="badge badge-success"><%= @order.state %></span></small></h1>
-    <h2>ISSUED ON <%= @order.created_at.to_date %></h2>
-    <h2>Charge ID #<%= @order.charge_id %></h2>
-    <h2>Total Ammount of <%= humanized_money_with_symbol @order.charged_amount %> </h2>
+    <h1>Order #<%= @order.id %> <small><span class="badge badge-success" id="status"><%= @order.state %></span></small></h1>
+    <h2 id="issue">ISSUED ON <%= @order.created_at.to_date %></h2>
+    <h2 id="charge-id">Charge ID #<%= @order.charge_id %></h2>
+    <h2 id="total-amount">Total Ammount of <%= humanized_money_with_symbol @order.charged_amount %> </h2>
     <% @order.products_orders.each do |products_order| %>
       <div class="row py-4">
         <div class="col-md-3"><%= image_tag products_order.product.photo_url, width: '100%' %></div>
@@ -19,4 +19,24 @@
   <% else %>
     <h1>There is no associate order for this ID</h1>
   <% end %>
+  <script>
+  function refresh() {
+    // make Ajax call here, inside the callback call:
+    setTimeout(refresh, 5000);
+    fetch("/api/v1/orders/<%= @order.id %>")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.state == "paid"){
+          console.log(data);
+          document.getElementById("status").innerText = "paid";
+          document.getElementById("charge-id").innerText = "Charge ID " + data.charge_id;
+          document.getElementById("total-amount").innerText = "Total Ammount of ¥" + data.charged_amount_cents;    
+        }
+      }
+      );
+    }
+    // initial call, or just call refresh directly
+    setTimeout(refresh, 5000);
+  </script>
 </div>

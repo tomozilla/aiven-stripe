@@ -8,6 +8,9 @@ class CartsController < ApplicationController
     else
       @cart_order = current_user.orders.where(state: 'cart').first
     end
+    unless current_user.default_payment_method.nil?
+      @show_card = "Pay Now with #{current_user.card_type} ending #{current_user.last4}"
+    end
   end
 
   def update

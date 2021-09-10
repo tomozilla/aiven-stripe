@@ -11,5 +11,5 @@
     </div>
   <% end %>
   <h2>Total Amount: <%= humanized_money_with_symbol @order.checkout_amount_cents %></h2>
-  <%= link_to "Pay with Stripe Elements", new_order_element_path(@order), class: "btn btn-secondary" %>
+  <%= link_to "Pay with Stripe Elements", new_order_element_path(@order), class: "btn btn-primary" %>
 </div>

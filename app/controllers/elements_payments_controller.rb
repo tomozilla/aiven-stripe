@@ -12,6 +12,9 @@ class ElementsPaymentsController < ApplicationController
             currency: 'jpy',
             payment_method_types: ['card'],
             customer: current_user.stripe_id,
+            # automatic_payment_methods: {
+            #     enabled: true,
+            # },
         })
 
         order.update(
