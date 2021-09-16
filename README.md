@@ -1,9 +1,9 @@
-### Multi-currency eCommerce web app
+# Multi-currency eCommerce web app
 
 This sample is a full stack web app built with RoR. This eCommerce app shows checkout and elemenets with Automatic Payment Methods. 
 
-Prerequsite
-1. Enable your accounts for Automatic Payment Methods Ask #automatic-payment-methods for more details.
+##Prerequsite
+1. Enable your accounts for Automatic Payment Methods. Ask #automatic-payment-methods for more details.
 
 2. Install Ngrok for proxy.
 
@@ -11,7 +11,7 @@ Prerequsite
 
 4. Postgres
 
-How to run
+##How to run
 Follow the steps below to run locally.
 
 1. Clone the repository:
