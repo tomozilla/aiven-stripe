@@ -9,8 +9,8 @@ class PayNowController < ApplicationController
 
         begin
             payment_intent = Stripe::PaymentIntent.create({
-                amount: @total_amount,
-                currency: 'jpy',
+                amount: Money.new(@total_amount, "JPY").exchange_to(order.payment_currency).fractional,
+                currency: order.payment_currency,
                 payment_method_types: ['card'],
                 customer: current_user.stripe_id,
                 payment_method: current_user.default_payment_method,

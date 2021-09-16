@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
   put "/update_quantity", to: "carts#update"
   delete "/delete_product", to: "carts#delete"
+  put "/change_currency", to: "elements_payments#change_currency"
   mount StripeEvent::Engine, at: '/webhook'
   get "orders/:id/elements/elements_redirect", to: "elements#redirect"
 end

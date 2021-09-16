@@ -20,10 +20,7 @@
   <% if @cart_order.products_orders.empty? %>
     <p>Shopping Cart is empty.</p>
   <% else %>
-    <%= link_to "Stripe Session", new_order_payment_path(@cart_order.id), id: 'checkout-btn', class: "btn btn-primary" %>
+    <%= link_to "Stripe Checkout", new_order_payment_path(@cart_order.id), id: 'checkout-btn', class: "btn btn-primary" %>
     <%= link_to "Stripe Elements", new_order_elements_payment_path(@cart_order.id), id: 'checkout-btn-elements', class: "btn btn-primary" %>
-    <% unless @current_user.default_payment_method.nil? %>     
-      <%= link_to @show_card, order_pay_now_index_path(@cart_order.id), id: 'checkout-btn-elements', class: "btn btn-primary", method: "post" %>
-    <% end %>
   <% end %>
 </div>

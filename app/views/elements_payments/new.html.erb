@@ -10,6 +10,22 @@
       </div>
     </div>
   <% end %>
-  <h2>Total Amount: <%= humanized_money_with_symbol @order.checkout_amount_cents %></h2>
+
+  <div>
+    <%= link_to "", change_currency_path(order: @order, currency: "aud"), class: "fas fa-dollar-sign", :remote => true, method: :put  %>
+    <%= link_to "", change_currency_path(order: @order, currency: "eur"), class: "fas fa-euro-sign", :remote => true, method: :put  %>
+    <%= link_to "", change_currency_path(order: @order, currency: "jpy"), class: "fas fa-yen-sign", :remote => true, method: :put  %>
+  </div>
+  <h2 id="main-currency-total">Total Amount: <%= humanized_money_with_symbol Money.new(@order.checkout_amount_cents, "JPY").exchange_to(@order.payment_currency) %></h2>
+
+  <%unless @order.payment_currency == "jpy"%>
+    <p id="sub-currency-total">Amount in Yen: <%= humanized_money_with_symbol(@order.checkout_amount_cents) %></p>
+  <%else%>
+    <p id="sub-currency-total-none"></p>
+  <% end %>    
+
   <%= link_to "Pay with Stripe Elements", new_order_element_path(@order), class: "btn btn-primary" %>
+  <% unless @current_user.default_payment_method.nil? %>     
+    <%= link_to @show_card, order_pay_now_index_path(@order.id), id: 'checkout-btn-elements', class: "btn btn-primary", method: "post" %>
+  <% end %>
 </div>

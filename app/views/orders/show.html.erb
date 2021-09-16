@@ -2,8 +2,8 @@
   <% unless @order.nil? %>
     <h1>Order #<%= @order.id %> <small><span class="badge badge-success" id="status"><%= @order.state %></span></small></h1>
     <h2 id="issue">ISSUED ON <%= @order.created_at.to_date %></h2>
-    <h2 id="charge-id">Charge ID #<%= @order.charge_id %></h2>
-    <h2 id="total-amount">Total Ammount of <%= humanized_money_with_symbol @order.charged_amount %> </h2>
+    <h2 id="charge-id">Charge ID <%= @order.charge_id %></h2>
+    <h2 id="total-amount">Total Ammount of <%= humanized_money_with_symbol(Money.new(@order.charged_amount_cents, @order.payment_currency)) %> </h2>
     <% @order.products_orders.each do |products_order| %>
       <div class="row py-4">
         <div class="col-md-3"><%= image_tag products_order.product.photo_url, width: '100%' %></div>
@@ -31,7 +31,7 @@
           console.log(data);
           document.getElementById("status").innerText = "paid";
           document.getElementById("charge-id").innerText = "Charge ID " + data.charge_id;
-          document.getElementById("total-amount").innerText = "Total Ammount of ¥" + data.charged_amount_cents;    
+          document.getElementById("total-amount").innerText = "Total Ammount of " + data.unit_price;    
         }
       }
       );

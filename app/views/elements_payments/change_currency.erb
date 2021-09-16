@@ -1,0 +1,6 @@
+function changeCurrency(new_currency, price) {
+    console.log(price);
+    const targetPriceText = document.getElementById(`main-currency-total`);
+    targetPriceText.innerHTML = `Total Amount: ${price}`;
+}
+changeCurrency("<%= @order.payment_currency %>", "<%= @price %>");

@@ -1,4 +1,6 @@
+include MoneyRails::ActionViewExtension
 class CartsController < ApplicationController
+
   before_action :set_products_order, only: [:update, :delete]
 
   def new
@@ -7,9 +9,6 @@ class CartsController < ApplicationController
       @cart_order = Order.create!(state: 'cart', user: current_user)
     else
       @cart_order = current_user.orders.where(state: 'cart').first
-    end
-    unless current_user.default_payment_method.nil?
-      @show_card = "Pay Now with #{current_user.card_type} ending #{current_user.last4}"
     end
   end
 
