@@ -1,5 +1,7 @@
 # Multi-currency eCommerce web app (Automatic Payment Methods)
 
+![Checkout Image](/img/cover.png)
+
 This sample is a full stack web app built with RoR. This eCommerce app shows checkout and elemenets with Automatic Payment Methods. 
 
 ## Prerequsite
