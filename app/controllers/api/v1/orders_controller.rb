@@ -5,7 +5,6 @@ class Api::V1::OrdersController < ApplicationController
 
     def show
         @order = Order.find(params[:id])
-        # price_object = Money.new(@order.charged_amount_cents, "JPY").exchange_to(@order.payment_currency)
         @price = humanized_money_with_symbol(Money.new(@order.charged_amount_cents, @order.payment_currency))
     end
   

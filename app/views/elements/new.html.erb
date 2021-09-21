@@ -11,13 +11,6 @@
       <%unless @order.payment_currency == "jpy"%>
         <p>Amount in Yen: <%= humanized_money_with_symbol(@order.checkout_amount_cents) %></p>
       <% end %>
-        <%# <div class="row py-4">
-          <div class="col">
-            <label for="name">Name</label>
-            <input id="name" placeholder="Jenny Rosen" value="Jenny Rosen" required />
-          </div>
-        </div> %>
-
         <div class="row py-4">
           <div class="col">
             <form id="payment-form">
@@ -30,9 +23,7 @@
         </div>
 
         <!-- We'll put the error messages in this element -->
-        <div id="card-errors" role="alert"></div>
-        <%# <%= link_to "Pay", order_path(@order), id: "pay", class: "btn btn-secondary" %>
-
+        <div id="card-errors" role="alert"> </div>
 
       </form>
 
@@ -52,21 +43,15 @@
       // Load the publishable key from the server. The publishable key
       // is set in your .env file.
       const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>', {
-        betas: ['payment_element_beta_1']
+         betas: ['payment_element_beta_1']
       });
       const elements = stripe.elements();
-      // var cs =  <%= @client_secret %>.json()
-      // const {client_secret: clientSecret} = cs.json();
       const paymentElement = elements.create("payment", {clientSecret: '<%= @order.client_secret%>'});
       paymentElement.mount("#card-element");
-      // const card = elements.create('card');
-      // card.mount('#card-element');
-
       const form = document.getElementById('payment-form');
 
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        console.log("inside");
         const {error} = await stripe.confirmPayment({
           element: paymentElement,
           confirmParams: {
@@ -78,53 +63,14 @@
         if (error) {
           // Show error to your customer (e.g., payment details incomplete)
           console.log(error.message);
+          document.getElementById("card-errors").style.color = "red"
+          document.getElementById('card-errors').innerText = error.message + " Please Contact our support or try other payment methods"
+
         } else {
           // Your customer will be redirected to your `return_url`. For some payment
           // methods like iDEAL, your customer will be redirected to an intermediate
           // site first to authorize the payment, then redirected to the `return_url`.
         }
       });
-
-
-      // const paymentButton = document.getElementById('pay');
-      // // When the form is submitted...
-      // const form = document.getElementById('payment-form');
-      // let submitted = false;
-
-      // paymentButton.addEventListener('click', (event) => {
-      //   event.preventDefault();
-      //   if(submitted) { return; }
-      //   submitted = true;
-      //   form.querySelector('button').disabled = true;
-
-      //   // const nameInput = document.querySelector('#name');
-
-      //   // Confirm the card payment given the clientSecret
-      //   // from the payment intent that was just created on
-      //   // the server.
-      //   stripe
-      //     .confirmCardPayment(
-      //     //   '<%= @order.client_secret %>', {
-      //     //   payment_method: {
-      //     //     card: card,
-      //     //     // billing_details: {
-      //     //     //   name: nameInput.value,
-      //     //     // },
-      //     //   },
-      //     //   setup_future_usage: 'off_session'
-      //     // }
-      //     ).then(function(response) {
-      //       if (response.error) {
-      //         console.log(response.error);
-      //         submitted = false;
-      //         form.querySelector('button').disabled = false;
-      //         return;
-      //       } else if (response.paymentIntent && response.paymentIntent.status === 'succeeded') {
-      //         order_id = <% @order.id %>
-      //         //request = new Request(`elements_redirect`);
-      //         window.location.href = "/orders/<%= @order.id %>/elements/elements_redirect"
-      //       }
-      //     })
-      // });
   </script>
 </div>
