@@ -1,0 +1,101 @@
+<div class="container py-3">
+    <% unless @pm_list.empty? %> 
+        <h1>Payment Methods</h1>
+            <div class="row mt-3 mb-3">
+                <div class="col-sm-12 col-md-2">
+                    <p>Card Brand</p>   
+                </div>
+                <div class="col-sm-12 col-md-2">
+                <p>Expire Month</p>    
+                </div>
+                <div class="col-sm-12 col-md-2">
+                <p>Last 4 Digits</p>    
+                </div>
+                <div class="col-sm-12 col-md-2">
+                <p>Main Card</p>    
+                </div>
+            </div>
+
+        <% @pm_list.each do |payment_method| %>
+            <div id = "card-<%= payment_method.id %>" class="row mt-3 mb-3">
+                <div class="col-sm-12 col-md-2">
+                    <p><%= payment_method.card.brand %></p>   
+                </div>
+                <div class="col-sm-12 col-md-2">
+                <p><%= payment_method.card.exp_month %>/<%= payment_method.card.exp_year %></p>    
+                </div>
+                <div class="col-sm-12 col-md-2">
+                <p><%= payment_method.card.last4 %></p>    
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <% if payment_method.id == @default_pm %>
+                        <i class="fas fa-check-circle"></i>
+                    <% else %>
+                        <i class="far fa-check-circle"></i>
+                    <% end %>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <% if payment_method.id == @default_pm %>
+                    <% else %>
+                        <%= link_to "", card_path(payment_method.id), class: "fas fa-trash-alt", :remote => true, method: :delete  %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+    <div class="row mt-3 mb-3">
+        <div class="col-sm-6 col-md-6">
+            <!-- placeholder for Elements -->
+            <form id="setup-form" data-secret="<%= @intent.client_secret %>" > 
+                    <span id="card-element"></span>
+                    
+                    <%# <span id="example2-card-number"></span>
+                    <span id="example2-card-expiry"></span> %>
+                    <span>
+                    <button id="card-button" class="btn btn-primary">
+                        Save Card
+                    </button>
+                    </span>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+
+    // var elements = stripe.elements();
+
+    // var cardNumber = elements.create('cardNumber');
+    // cardNumber.mount('#example2-card-number');
+
+    // var cardExpiry = elements.create('cardExpiry');
+    // cardExpiry.mount('#example2-card-expiry');
+    
+    
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    var cardholderName = document.getElementById('cardholder-name');
+    var setupForm = document.getElementById('setup-form');
+    var clientSecret = setupForm.dataset.secret;
+
+    setupForm.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    stripe.confirmCardSetup(
+        clientSecret,
+        {
+            payment_method: {
+                card: cardElement,
+            },
+        }
+    ).then(function(result) {
+        if (result.error) {
+        // Display error.message in your UI.
+        } else {
+        // The setup has succeeded. Display a success message.
+        window.location.href = "/cards"
+        }
+    });
+    });
+</script>

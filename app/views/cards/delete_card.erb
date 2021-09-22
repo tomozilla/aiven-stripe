@@ -1,0 +1,5 @@
+function deleteCard(target_payment_method) {
+  const targetCard = document.getElementById(`card-${target_payment_method}`);
+  targetCard.remove();
+}
+deleteCard("<%= @payment_method %>");

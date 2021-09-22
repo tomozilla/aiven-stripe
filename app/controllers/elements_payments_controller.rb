@@ -10,7 +10,10 @@ class ElementsPaymentsController < ApplicationController
         Stripe.api_version = '2020-08-27;automatic_payment_methods_beta=v1'
         payment_intent = Stripe::PaymentIntent.create({
             amount: Money.new(@total_amount, "JPY").exchange_to(order.payment_currency).fractional,
+            # amount: @total_amount,
             currency: order.payment_currency,
+            # payment_method_types: ['card'],
+            # customer: current_user.stripe_id,
             automatic_payment_methods: {
                 enabled: true,
             },
