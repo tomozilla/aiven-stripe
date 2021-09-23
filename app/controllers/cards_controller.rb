@@ -15,7 +15,12 @@ class CardsController < ApplicationController
 
     def update
         payment_method = params[:id]
+        new_pm = Stripe::PaymentMethod.retrieve(
+            payment_method,
+          )
         current_user.default_payment_method = payment_method
+        current_user.card_type = new_pm.card.brand
+        current_user.last4 = new_pm.card.last4
         current_user.save!
         render 'cards/update_payment_method'
     end

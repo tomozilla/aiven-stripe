@@ -25,7 +25,7 @@
     <p id="sub-currency-total-none"></p>
   <% end %>    
 
-  <%= link_to "Pay with Stripe Elements", new_order_element_path(@order), class: "btn btn-primary" %>
+  <%= link_to "Pay with Stripe Elements", new_order_element_path(@order), class: "btn btn-primary", data: { turbolinks: false } %>
   <% unless @current_user.default_payment_method.nil? %>     
     <%= link_to @show_card, order_pay_now_index_path(@order.id), id: 'checkout-btn-elements', class: "btn btn-primary", method: "post" %>
   <% end %>
