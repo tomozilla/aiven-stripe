@@ -2,39 +2,39 @@
     <% unless @pm_list.empty? %> 
         <h1>Payment Methods</h1>
             <div class="row mt-3 mb-3">
-                <div class="col-sm-12 col-md-2">
+                <div class="col-4 col-md-2">
                     <p>Card Brand</p>   
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-3 col-md-2">
                 <p>Expire Month</p>    
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-2 col-md-2">
                 <p>Last 4 Digits</p>    
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-1 col-md-2">
                 <p>Main Card</p>    
                 </div>
             </div>
 
         <% @pm_list.each do |payment_method| %>
             <div id = "card-<%= payment_method.id %>" class="row mt-3 mb-3">
-                <div class="col-sm-12 col-md-2">
+                <div class="col-4 col-md-2">
                     <p><%= payment_method.card.brand %></p>   
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-3 col-md-2">
                 <p><%= payment_method.card.exp_month %>/<%= payment_method.card.exp_year %></p>    
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-2 col-md-2">
                 <p><%= payment_method.card.last4 %></p>    
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-1 col-md-2">
                     <% if payment_method.id == @default_pm %>
                         <i class="fas fa-check-circle"></i>
                     <% else %>
                         <%= link_to "", card_path(payment_method.id), class: "far fa-check-circle", :remote => true, method: :put  %>
                     <% end %>
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-1 col-md-2">
                     <% unless payment_method.id == @default_pm %>
                         <%= link_to "", card_path(payment_method.id), class: "fas fa-trash-alt", :remote => true, method: :delete  %>
                     <% end %>
