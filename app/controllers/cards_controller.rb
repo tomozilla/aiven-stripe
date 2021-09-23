@@ -13,6 +13,13 @@ class CardsController < ApplicationController
 
     end
 
+    def update
+        payment_method = params[:id]
+        current_user.default_payment_method = payment_method
+        current_user.save!
+        render 'cards/update_payment_method'
+    end
+
     def destroy
         @payment_method = params[:id]
         Stripe::PaymentMethod.detach(
