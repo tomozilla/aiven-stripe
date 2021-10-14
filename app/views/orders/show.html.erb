@@ -22,7 +22,7 @@
   <script>
   function refresh() {
     // make Ajax call here, inside the callback call:
-    setTimeout(refresh, 5000);
+    setTimeout(refresh, 1000);
     fetch("/api/v1/orders/<%= @order.id %>")
       .then(response => response.json())
       .then(data => {
@@ -37,6 +37,6 @@
       );
     }
     // initial call, or just call refresh directly
-    setTimeout(refresh, 5000);
+    setTimeout(refresh, 1000);
   </script>
 </div>

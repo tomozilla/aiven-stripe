@@ -16,6 +16,7 @@
     <%= link_to "AUD", change_currency_path(order: @order, currency: "aud"), :remote => true, method: :put  %>
     <%= link_to "EUR", change_currency_path(order: @order, currency: "eur"), :remote => true, method: :put  %>
     <%= link_to "JPY", change_currency_path(order: @order, currency: "jpy"), :remote => true, method: :put  %>
+    <%= link_to "CNY", change_currency_path(order: @order, currency: "cny"), :remote => true, method: :put  %>
   </div>
   <h2 id="main-currency-total">Total Amount: <%= humanized_money_with_symbol Money.new(@order.checkout_amount_cents, "JPY").exchange_to(@order.payment_currency) %></h2>
 
