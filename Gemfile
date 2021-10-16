@@ -36,6 +36,7 @@ gem 'simple_form'
 gem 'money-rails'
 gem 'stripe'
 gem 'stripe_event'
+gem 'rack-cors'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
