@@ -41,3 +41,5 @@ yarn-debug.log*
 .DS_Store
 ## Ignore .Gemfile.lock
 .Gemfile.lock
+# Ignore Aiven keys and certs.
+/aiven/*

@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Checkout Summary</h1>
+  <% @order.products_orders.each do |products_order| %>
+    <div class="row py-4">
+      <div class="col-md-3"><%= image_tag products_order.product.photo_url, width: '100%' %></div>
+      <div class="col">
+        <p>Purchase of <strong><%= products_order.product.name %></strong></p>
+        <p><strong><%= humanized_money_with_symbol products_order.amount_cents %></strong></p>
+        <p>Quantity: <%= products_order.quantity %></strong></p>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= link_to "USD", checkout_change_currency_path(order: @order, currency: "usd"), :remote => true, method: :put  %>
+    <%= link_to "AUD", checkout_change_currency_path(order: @order, currency: "aud"), :remote => true, method: :put  %>
+    <%= link_to "EUR", checkout_change_currency_path(order: @order, currency: "eur"), :remote => true, method: :put  %>
+    <%= link_to "JPY", checkout_change_currency_path(order: @order, currency: "jpy"), :remote => true, method: :put  %>
+    <%= link_to "CNY", checkout_change_currency_path(order: @order, currency: "cny"), :remote => true, method: :put  %>
+  </div>
+  <h2 id="main-currency-total">Total Amount: <%= humanized_money_with_symbol Money.new(@order.checkout_amount_cents, "JPY").exchange_to(@order.payment_currency) %></h2>
+
+  <%unless @order.payment_currency == "jpy"%>
+    <p id="sub-currency-total">Amount in Yen: <%= humanized_money_with_symbol(@order.checkout_amount_cents) %></p>
+  <%else%>
+    <p id="sub-currency-total-none"></p>
+  <% end %>    
+
+  <%= link_to "Check Your Order", new_order_payment_path(@order), class: "btn btn-primary", data: { turbolinks: false } %>
+</div>

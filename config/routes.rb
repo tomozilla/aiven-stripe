@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :elements_payments, only: :new
     resources :elements, only: [:new, :create]
     resources :pay_now, only: [:create]
+    resources :checkout_currency, only: :new
   end
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   put "/update_quantity", to: "carts#update"
   delete "/delete_product", to: "carts#delete"
   put "/change_currency", to: "elements_payments#change_currency"
+  put "/checkout_change_currency", to: "checkout_currency#change_currency"
   mount StripeEvent::Engine, at: '/webhook'
   get "orders/:id/elements/elements_redirect", to: "elements#redirect"
 end

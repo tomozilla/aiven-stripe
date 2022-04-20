@@ -8,6 +8,7 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 StripeEvent.configure do |events|
+  events.subscribe 'payment_intent.created', StripePaymentIntentCreationService.new
   events.subscribe 'payment_intent.succeeded', StripePaymentIntentSuccessService.new
   events.subscribe 'payment_method.attached', StripePaymentMethodAttachedService.new
   events.subscribe 'payment_intent.payment_failed', StripePaymentFailedService.new

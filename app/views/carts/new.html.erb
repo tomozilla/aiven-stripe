@@ -20,7 +20,7 @@
   <% if @cart_order.products_orders.empty? %>
     <p>Shopping Cart is empty.</p>
   <% else %>
-    <%= link_to "Stripe Checkout", new_order_payment_path(@cart_order.id), id: 'checkout-btn', class: "btn btn-primary" %>
+    <%= link_to "Stripe Checkout", new_order_checkout_currency_path(@cart_order.id), id: 'checkout-btn', class: "btn btn-primary" %>
     <%= link_to "Stripe Elements", new_order_elements_payment_path(@cart_order.id), id: 'checkout-btn-elements', class: "btn btn-primary" %>
   <% end %>
 </div>

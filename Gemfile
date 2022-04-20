@@ -37,6 +37,8 @@ gem 'money-rails'
 gem 'stripe'
 gem 'stripe_event'
 gem 'rack-cors'
+gem 'ruby-kafka'
+gem 'securerandom'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

@@ -15,7 +15,7 @@ MoneyRails.configure do |config|
   # (The conversion rate refers to one direction only)
   #
   # Example:
-  config.add_rate "JPY", "EUR", 0.0077
+  config.add_rate "JPY", "EUR", 0.0079
   config.add_rate "JPY", "USD", 0.0091
   config.add_rate "JPY", "CNY", 0.059
   config.add_rate "JPY", "AUD", 0.012

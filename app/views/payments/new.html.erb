@@ -1,16 +1,13 @@
 <div class="container">
   <h1>Checkout Summary</h1>
-  <% @order.products_orders.each do |products_order| %>
-    <div class="row py-4">
-      <div class="col-md-3"><%= image_tag products_order.product.photo_url, width: '100%' %></div>
-      <div class="col">
-        <p>Purchase of <strong><%= products_order.product.name %></strong></p>
-        <p><strong><%= humanized_money_with_symbol products_order.amount_cents %></strong></p>
-        <p>Quantity: <%= products_order.quantity %></strong></p>
-      </div>
-    </div>
-  <% end %>
-  <h2>Total Amount: <%= humanized_money_with_symbol @order.checkout_amount_cents %></h2>
+  
+  <br>
+  <h2>Total Amount: <%= @humanized_total_amount %></h2>
+  <%unless @order.payment_currency == "jpy"%>
+    <p id="sub-currency-total">Amount in Yen: <%= humanized_money_with_symbol(@order.checkout_amount_cents) %></p>
+  <%else%>
+  <%end%>
+
   <button id="pay" class="btn btn-primary">Pay with Stripe Checkout</button>
   <div id="error-message"></div>
 
